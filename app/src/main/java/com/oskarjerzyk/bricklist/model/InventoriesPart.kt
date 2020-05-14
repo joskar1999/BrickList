@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "InventoriesParts")
 data class InventoriesPart(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "InventoryID") val inventoryId: Int,
     @ColumnInfo(name = "TypeID") val typeId: Int,
     @ColumnInfo(name = "ItemID") val itemId: Int,
