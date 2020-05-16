@@ -1,0 +1,19 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:key="@string/general_category"
+        app:title="@string/general">
+
+        <EditTextPreference
+            app:defaultValue="http://fcds.cs.put.poznan.pl/MyWeb/BL/"
+            app:key="@string/url_prefix"
+            app:summary="@string/prefix_of_url"
+            app:title="@string/prefix_of_url" />
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:key="@string/show_archived"
+            app:summary="@string/show_archived_items"
+            app:title="@string/archive" />
+
+    </PreferenceCategory>
+</PreferenceScreen>
