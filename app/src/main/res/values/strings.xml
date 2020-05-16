@@ -28,4 +28,6 @@
     <string name="set_name">Set name...</string>
     <string name="set_id">Set id...</string>
     <string name="settings">Settings</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
 </resources>
