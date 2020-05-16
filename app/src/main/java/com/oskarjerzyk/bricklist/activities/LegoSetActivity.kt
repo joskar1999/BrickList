@@ -1,6 +1,9 @@
 package com.oskarjerzyk.bricklist.activities
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.oskarjerzyk.bricklist.R
@@ -21,5 +24,20 @@ class LegoSetActivity : AppCompatActivity() {
 
         brick_list.layoutManager = LinearLayoutManager(this)
         brick_list.adapter = BrickListAdapter(items, this)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.project_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_save -> {
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
     }
 }
