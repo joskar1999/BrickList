@@ -46,6 +46,11 @@ class MainActivity : AppCompatActivity() {
         inventories_list.layoutManager = LinearLayoutManager(this)
         inventories_list.adapter = InventoryListAdapter(items, this)
 
+        fab.setOnClickListener {
+            val newProjectIntent = Intent(this, NewProjectActivity::class.java)
+            startActivity(newProjectIntent)
+        }
+
         xmlMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
         xmlMapper.setDefaultUseWrapper(false)
 

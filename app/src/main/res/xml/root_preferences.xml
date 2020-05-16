@@ -6,8 +6,8 @@
         <EditTextPreference
             app:defaultValue="http://fcds.cs.put.poznan.pl/MyWeb/BL/"
             app:key="@string/url_prefix"
-            app:summary="@string/prefix_of_url"
-            app:title="@string/prefix_of_url" />
+            app:title="@string/prefix_of_url"
+            app:useSimpleSummaryProvider="true" />
 
         <SwitchPreference
             app:defaultValue="false"
