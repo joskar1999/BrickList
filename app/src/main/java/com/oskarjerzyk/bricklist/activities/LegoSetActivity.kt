@@ -15,9 +15,9 @@ class LegoSetActivity : AppCompatActivity() {
         setContentView(R.layout.activity_lego_set)
 
         val items: ArrayList<BrickItemListModel> = ArrayList()
-        items.add(BrickItemListModel("", "Chuj", "2137JP2", "12"))
-        items.add(BrickItemListModel("", "Dupa", "2137JP3", "13"))
-        items.add(BrickItemListModel("", "Pizda", "2137JP4", "14"))
+        items.add(BrickItemListModel("", "Chuj", "2137JP2", 12, 2))
+        items.add(BrickItemListModel("", "Dupa", "2137JP3", 13, 1))
+        items.add(BrickItemListModel("", "Pizda", "2137JP4", 14, 3))
 
         brick_list.layoutManager = LinearLayoutManager(this)
         brick_list.adapter = BrickListAdapter(items, this)

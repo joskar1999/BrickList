@@ -1,5 +1,6 @@
 package com.oskarjerzyk.bricklist.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -32,7 +33,8 @@ class BrickListAdapter(
     override fun onBindViewHolder(holder: BrickListViewHolder, position: Int) {
         holder.brickName.text = items[position].brickName
         holder.brickCode.text = items[position].brickCode
-        holder.brickAmount.text = items[position].brickAmount
+        holder.brickAmount.text =
+            "${items[position].brickCurrentAmount} of ${items[position].brickAmount}"
         holder.minusButton.setOnClickListener {
 
         }

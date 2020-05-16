@@ -7,11 +7,13 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.dataformat.xml.XmlMapper
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
 import com.oskarjerzyk.bricklist.R
+import com.oskarjerzyk.bricklist.adapter.InventoryListAdapter
 import com.oskarjerzyk.bricklist.dao.ItemTypeDao
 import com.oskarjerzyk.bricklist.model.ItemType
 import com.oskarjerzyk.bricklist.util.BrickListDatabase
@@ -20,6 +22,7 @@ import com.oskarjerzyk.bricklist.util.InventoryXML
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,6 +37,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val items: ArrayList<String> = ArrayList()
+        items.add("Chuj")
+        items.add("Dupa")
+        items.add("Pizda")
+
+        inventories_list.layoutManager = LinearLayoutManager(this)
+        inventories_list.adapter = InventoryListAdapter(items, this)
 
         xmlMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
         xmlMapper.setDefaultUseWrapper(false)
