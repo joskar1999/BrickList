@@ -32,7 +32,7 @@ class InventoryListAdapter(private val items: ArrayList<Inventory>, private val 
         holder.isArchived.isChecked = items[position].active == 0
         holder.listItemLayout.setOnClickListener {
             val setIntent = Intent(context, LegoSetActivity::class.java)
-            setIntent.putExtra("setId", items[position].id)
+            setIntent.putExtra("inventoryId", items[position].id)
             holder.inventoryItem.context.startActivity(setIntent)
         }
     }

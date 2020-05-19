@@ -8,22 +8,48 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.oskarjerzyk.bricklist.R
 import com.oskarjerzyk.bricklist.adapter.BrickListAdapter
+import com.oskarjerzyk.bricklist.dao.ColorDao
+import com.oskarjerzyk.bricklist.dao.InventoriesPartDao
+import com.oskarjerzyk.bricklist.dao.PartDao
 import com.oskarjerzyk.bricklist.model.BrickItemListModel
+import com.oskarjerzyk.bricklist.util.BrickListDatabase
+import com.oskarjerzyk.bricklist.util.BrickListDatabase.Companion.getInstance
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_lego_set.*
 
 class LegoSetActivity : AppCompatActivity() {
+
+    private var database: BrickListDatabase? = null
+    private var inventoriesPartDao: InventoriesPartDao? = null
+    private var partDao: PartDao? = null
+    private var colorDao: ColorDao? = null
+    private var items: ArrayList<BrickItemListModel> = ArrayList()
+    private var inventoryId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lego_set)
 
-        val items: ArrayList<BrickItemListModel> = ArrayList()
-        items.add(BrickItemListModel("", "Chuj", "2137JP2", 12, 2))
-        items.add(BrickItemListModel("", "Dupa", "2137JP3", 13, 1))
-        items.add(BrickItemListModel("", "Pizda", "2137JP4", 14, 3))
+        database = getInstance(context = this)
+        inventoriesPartDao = database?.inventoriesPartDao()
+        partDao = database?.partDao()
+        colorDao = database?.colorDao()
+        inventoryId = intent.getIntExtra("inventoryId", 0)
 
         brick_list.layoutManager = LinearLayoutManager(this)
         brick_list.adapter = BrickListAdapter(items, this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Observable.fromCallable {
+            getInventoryBricks()
+            runOnUiThread { brick_list.adapter = BrickListAdapter(items, this) }
+        }.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -39,5 +65,28 @@ class LegoSetActivity : AppCompatActivity() {
         else -> {
             super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun getInventoryBricks() {
+        val inventoriesParts = inventoriesPartDao?.getItemsByInventoryId(inventoryId)
+        inventoriesParts?.forEach {
+            items.add(
+                BrickItemListModel(
+                    imagePath = "",
+                    brickName = getBrickName(it.itemId),
+                    brickColor = getBrickColorName(it.colorId),
+                    brickAmount = it.quantityInSet,
+                    brickCurrentAmount = it.quantityInStore
+                )
+            )
+        }
+    }
+
+    private fun getBrickName(itemId: String): String {
+        return partDao?.getPartByCode(itemId)?.name ?: ""
+    }
+
+    private fun getBrickColorName(colorCode: Int): String {
+        return colorDao?.getColorByCode(colorCode)?.name ?: ""
     }
 }

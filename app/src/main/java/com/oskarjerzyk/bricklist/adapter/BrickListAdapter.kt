@@ -31,7 +31,7 @@ class BrickListAdapter(
 
     override fun onBindViewHolder(holder: BrickListViewHolder, position: Int) {
         holder.brickName.text = items[position].brickName
-        holder.brickCode.text = items[position].brickCode
+        holder.brickCode.text = items[position].brickColor
         holder.brickAmount.text =
             "${items[position].brickCurrentAmount} of ${items[position].brickAmount}"
         holder.minusButton.setOnClickListener {

@@ -68,11 +68,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(settingsIntent)
             true
         }
-        R.id.action_project -> {
-            val projectActivity = Intent(this, LegoSetActivity::class.java)
-            startActivity(projectActivity)
-            true
-        }
         else -> {
             super.onOptionsItemSelected(item)
         }

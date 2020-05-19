@@ -14,4 +14,7 @@ interface InventoriesPartDao {
 
     @Query("SELECT * FROM InventoriesParts")
     fun findAll(): List<InventoriesPart>
+
+    @Query("SELECT * FROM InventoriesParts WHERE InventoryID = :inventoryId")
+    fun getItemsByInventoryId(inventoryId: Int): List<InventoriesPart>
 }
