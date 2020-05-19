@@ -72,6 +72,8 @@ class LegoSetActivity : AppCompatActivity() {
         inventoriesParts?.forEach {
             items.add(
                 BrickItemListModel(
+                    inventoryId = it.inventoryId,
+                    itemId = it.itemId,
                     imagePath = "",
                     brickName = getBrickName(it.itemId),
                     brickColor = getBrickColorName(it.colorId),

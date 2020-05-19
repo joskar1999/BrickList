@@ -17,4 +17,7 @@ interface InventoriesPartDao {
 
     @Query("SELECT * FROM InventoriesParts WHERE InventoryID = :inventoryId")
     fun getItemsByInventoryId(inventoryId: Int): List<InventoriesPart>
+
+    @Query("UPDATE InventoriesParts SET QuantityInStore = :quantity WHERE InventoryID = :inventoryId AND ItemID = :itemId")
+    fun updateCurrentQuantity(inventoryId: Int, itemId: String, quantity: Int)
 }
