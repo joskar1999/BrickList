@@ -40,7 +40,6 @@ abstract class BrickListDatabase : RoomDatabase() {
                     "BrickList"
                 )
                     .createFromAsset("BrickList.db")
-                    .fallbackToDestructiveMigration()
                     .build()
             }
             return INSTANCE

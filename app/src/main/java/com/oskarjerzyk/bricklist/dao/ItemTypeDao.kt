@@ -9,4 +9,7 @@ interface ItemTypeDao {
 
     @Query("SELECT * FROM ItemTypes")
     fun findAll(): List<ItemType>
+
+    @Query("SELECT id FROM ItemTypes WHERE Code = :code")
+    fun getItemTypeIdByCode(code: String): Int
 }

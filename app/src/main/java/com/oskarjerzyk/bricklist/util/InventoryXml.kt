@@ -9,5 +9,5 @@ data class InventoryXML(
 
     @JacksonXmlElementWrapper(useWrapping = false)
     @JacksonXmlProperty(localName = "ITEM")
-    val Item: List<ItemXml>
+    val items: List<ItemXml>
 )
