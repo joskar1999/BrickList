@@ -1,6 +1,7 @@
 package com.oskarjerzyk.bricklist.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -26,12 +27,14 @@ class MainActivity : AppCompatActivity() {
     private var itemTypeDao: ItemTypeDao? = null
     private var inventoryDao: InventoryDao? = null
     private var items: List<Inventory> = ArrayList()
+    private var sharedPreferences: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false)
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
 
         database = getInstance(context = this)
         itemTypeDao = database?.itemTypeDao()
@@ -78,5 +81,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun getInventories() {
         items = inventoryDao?.findAll() ?: ArrayList()
+        if (!sharedPreferences?.getBoolean("show_archived", true)!!) {
+            items = items.filter { item -> item.active == 1 }
+        }
     }
 }

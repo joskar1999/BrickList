@@ -14,4 +14,7 @@ interface InventoryDao {
 
     @Query("SELECT * FROM Inventories")
     fun findAll(): List<Inventory>
+
+    @Query("UPDATE Inventories SET Active = :state WHERE Name = :name")
+    fun toggleInventoryState(name: String, state: Int)
 }
