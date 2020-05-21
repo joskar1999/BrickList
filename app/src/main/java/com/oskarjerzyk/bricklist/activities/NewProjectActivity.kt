@@ -50,10 +50,20 @@ class NewProjectActivity : AppCompatActivity() {
         }
         add_set_button.setOnClickListener {
             Observable.fromCallable {
-                val inventoryId: Long = saveInventory()
-                saveInventoryItems(inventoryId)
-                runOnUiThread {
-                    Toast.makeText(this, "Set added to inventory", Toast.LENGTH_LONG).show()
+                if (!checkIfInventoryExists(new_set_name.text.toString())) {
+                    val inventoryId: Long = saveInventory()
+                    saveInventoryItems(inventoryId)
+                    runOnUiThread {
+                        Toast.makeText(this, "Set added to inventory", Toast.LENGTH_LONG).show()
+                    }
+                } else {
+                    runOnUiThread {
+                        Toast.makeText(
+                            this,
+                            "Inventory with given name already exists",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
             }.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -118,5 +128,9 @@ class NewProjectActivity : AppCompatActivity() {
                 )
             }
         }
+    }
+
+    private fun checkIfInventoryExists(name: String): Boolean {
+        return inventoryDao?.findAll()?.any { item -> item.name == name }!!
     }
 }
