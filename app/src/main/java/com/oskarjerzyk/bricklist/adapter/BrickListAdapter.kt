@@ -68,7 +68,11 @@ class BrickListAdapter(
             }
         }
         Glide.with(context)
-            .load("https://images.genius.com/c745ae8eec9dd6000f52a07aa84e4457.1000x1000x1.jpg")
+            .load(item.primaryImagePath).error(
+                Glide.with(context).load(item.secondaryImagePath).error(
+                    Glide.with(context).load(item.tertiaryImagePath)
+                )
+            )
             .into(holder.image)
     }
 
