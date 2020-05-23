@@ -131,7 +131,7 @@ class LegoSetActivity : AppCompatActivity() {
             }
         val inventoryExportModel = InventoryExportModel(item = exportItems)
         val xmlOutput = mapXmlOutputToUpperCase(xmlMapper.writeValueAsString(inventoryExportModel))
-        writeDataToXmlFile(xmlOutput, getInventoryName(inventoryId))
+        writeDataToXmlFile(xmlOutput, getInventoryName(inventoryId), inventoryId)
     }
 
     private fun getInventoryBricks() {
@@ -154,14 +154,14 @@ class LegoSetActivity : AppCompatActivity() {
         }
     }
 
-    private fun writeDataToXmlFile(data: String, fileName: String) {
+    private fun writeDataToXmlFile(data: String, fileName: String, inventoryId: Int) {
         val documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder()
         val inputSource = InputSource(StringReader(data))
 
         val path = this.filesDir
         val outDir = File(path, "output")
         outDir.mkdir()
-        val file = File(outDir, "$fileName.xml")
+        val file = File(outDir, "${fileName.replace(' ', '_')}_$inventoryId.xml")
 
         val transformer = TransformerFactory.newInstance().newTransformer()
         transformer.setOutputProperty(OutputKeys.INDENT, "yes")
