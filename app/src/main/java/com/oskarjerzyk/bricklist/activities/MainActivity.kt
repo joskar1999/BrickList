@@ -8,6 +8,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.oskarjerzyk.bricklist.R
 import com.oskarjerzyk.bricklist.adapter.InventoryListAdapter
@@ -39,6 +40,12 @@ class MainActivity : AppCompatActivity() {
 
         inventories_list.layoutManager = LinearLayoutManager(this)
         inventories_list.adapter = InventoryListAdapter(items as ArrayList<Inventory>, this)
+        inventories_list.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                DividerItemDecoration.VERTICAL
+            )
+        )
 
         fab.setOnClickListener {
             val newProjectIntent = Intent(this, NewProjectActivity::class.java)
