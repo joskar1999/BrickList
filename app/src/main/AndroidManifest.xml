@@ -4,6 +4,7 @@
     package="com.oskarjerzyk.bricklist">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +17,7 @@
         tools:targetApi="m">
         <activity
             android:name=".activities.SettingsActivity"
-            android:label="@string/title_activity_settings"/>
+            android:label="@string/title_activity_settings" />
         <activity android:name=".activities.ExportActivity" />
         <activity android:name=".activities.NewProjectActivity" />
         <activity android:name=".activities.LegoSetActivity" />

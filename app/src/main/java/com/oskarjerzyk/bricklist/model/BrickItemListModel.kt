@@ -9,5 +9,6 @@ data class BrickItemListModel(
     val brickName: String,
     val brickColor: String,
     val brickAmount: Int,
-    var brickCurrentAmount: Int
+    var brickCurrentAmount: Int,
+    val typeId: Int
 )

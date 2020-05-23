@@ -12,4 +12,7 @@ interface ItemTypeDao {
 
     @Query("SELECT id FROM ItemTypes WHERE Code = :code")
     fun getItemTypeIdByCode(code: String): Int
+
+    @Query("SELECT * FROM ItemTypes WHERE Id = :typeId")
+    fun getItemTypeByTypeId(typeId: Int): ItemType
 }

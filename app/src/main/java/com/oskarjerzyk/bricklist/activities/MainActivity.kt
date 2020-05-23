@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.oskarjerzyk.bricklist.R
 import com.oskarjerzyk.bricklist.adapter.InventoryListAdapter
 import com.oskarjerzyk.bricklist.dao.InventoryDao
-import com.oskarjerzyk.bricklist.dao.ItemTypeDao
 import com.oskarjerzyk.bricklist.model.Inventory
 import com.oskarjerzyk.bricklist.util.BrickListDatabase
 import com.oskarjerzyk.bricklist.util.BrickListDatabase.Companion.getInstance
@@ -24,7 +23,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private var database: BrickListDatabase? = null
-    private var itemTypeDao: ItemTypeDao? = null
     private var inventoryDao: InventoryDao? = null
     private var items: List<Inventory> = ArrayList()
     private var sharedPreferences: SharedPreferences? = null
@@ -37,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
 
         database = getInstance(context = this)
-        itemTypeDao = database?.itemTypeDao()
         inventoryDao = database?.inventoryDao()
 
         inventories_list.layoutManager = LinearLayoutManager(this)
@@ -59,7 +56,6 @@ class MainActivity : AppCompatActivity() {
         }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe()
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

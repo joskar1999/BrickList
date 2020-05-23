@@ -9,4 +9,7 @@ interface ColorDao {
 
     @Query("SELECT * FROM Colors WHERE Code = :code")
     fun getColorByCode(code: Int): Color
+
+    @Query("SELECT * FROM Colors WHERE Name = :name")
+    fun getColorByName(name: String): Color
 }

@@ -17,4 +17,7 @@ interface InventoryDao {
 
     @Query("UPDATE Inventories SET Active = :state WHERE Name = :name")
     fun toggleInventoryState(name: String, state: Int)
+
+    @Query("SELECT * FROM Inventories WHERE Id = :id")
+    fun getInventoryById(id: Int): Inventory
 }
