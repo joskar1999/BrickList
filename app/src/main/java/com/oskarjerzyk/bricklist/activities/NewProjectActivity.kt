@@ -45,6 +45,9 @@ class NewProjectActivity : AppCompatActivity() {
         inventoriesPartDao = database?.inventoriesPartDao()
         itemTypeDao = database?.itemTypeDao()
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
         check_set_button.setOnClickListener {
             getLegoSetXml(new_set_id.text.toString())
         }
@@ -69,6 +72,11 @@ class NewProjectActivity : AppCompatActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     private fun getLegoSetXml(legoSetId: String) {
@@ -131,6 +139,6 @@ class NewProjectActivity : AppCompatActivity() {
     }
 
     private fun checkIfInventoryExists(name: String): Boolean {
-        return inventoryDao?.findAll()?.any { item -> item.name == name }!!
+        return inventoryDao?.findAll()?.any { item -> item.name == name.trimEnd().trimStart() }!!
     }
 }

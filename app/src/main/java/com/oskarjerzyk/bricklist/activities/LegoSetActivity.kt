@@ -62,6 +62,9 @@ class LegoSetActivity : AppCompatActivity() {
         inventoryDao = database?.inventoryDao()
         inventoryId = intent.getIntExtra("inventoryId", 0)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
         xmlMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
         xmlMapper.setDefaultUseWrapper(false)
 
@@ -83,6 +86,11 @@ class LegoSetActivity : AppCompatActivity() {
         }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
