@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -39,6 +40,11 @@ class BrickListAdapter(
 
     override fun onBindViewHolder(holder: BrickListViewHolder, position: Int) {
         val item = items[position]
+        if (item.brickCurrentAmount == item.brickAmount) {
+            holder.brickItemLayout.setBackgroundColor(context.resources.getColor(R.color.colorAccent))
+        } else {
+            holder.brickItemLayout.setBackgroundColor(context.resources.getColor(R.color.design_default_color_background))
+        }
         holder.brickName.text = item.brickName
         holder.brickCode.text = item.brickColor
         holder.brickAmount.text =
@@ -53,6 +59,9 @@ class BrickListAdapter(
                     item.brickAmount,
                     holder
                 )
+                if (item.brickCurrentAmount < item.brickAmount) {
+                    holder.brickItemLayout.setBackgroundColor(context.resources.getColor(R.color.design_default_color_background))
+                }
             }
         }
         holder.addButton.setOnClickListener {
@@ -65,6 +74,11 @@ class BrickListAdapter(
                     item.brickAmount,
                     holder
                 )
+                if (item.brickCurrentAmount == item.brickAmount) {
+                    holder.brickItemLayout.setBackgroundColor(context.resources.getColor(R.color.colorAccent))
+                } else {
+                    holder.brickItemLayout.setBackgroundColor(context.resources.getColor(R.color.design_default_color_background))
+                }
             }
         }
         Glide.with(context)
@@ -100,4 +114,5 @@ class BrickListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val brickAmount: TextView = view.brick_amount
     val minusButton: Button = view.minus_brick_btn
     val addButton: Button = view.plus_brick_btn
+    val brickItemLayout: LinearLayout = view.brick_item_layout
 }
